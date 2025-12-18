@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クリスマス メッセージジェネレーター</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro', 'Yu Gothic', '游ゴシック', 'Meiryo', 'メイリオ', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #e3f2fd 50%, #f0f4ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '❄️';
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.1;
+            top: -20px;
+            right: -20px;
+            animation: rotate 20s linear infinite;
+        }
+
+        .container::after {
+            content: '🎄';
+            position: absolute;
+            font-size: 80px;
+            opacity: 0.1;
+            bottom: -10px;
+            left: -10px;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h1 {
+            color: #d45d79;
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #7b8cde;
+            font-size: 0.95em;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .greeting-box {
+            background: linear-gradient(135deg, #fff5f7 0%, #f0f7ff 100%);
+            border: 2px solid #ffd4e5;
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin-bottom: 30px;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .greeting-text {
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #5a5a5a;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .icon-decoration {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.2;
+        }
+
+        .icon-1 { top: 10px; left: 10px; }
+        .icon-2 { top: 10px; right: 10px; }
+        .icon-3 { bottom: 10px; left: 10px; }
+        .icon-4 { bottom: 10px; right: 10px; }
+
+        button {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffa5c0 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 107, 157, 0.4);
+            background: linear-gradient(135deg, #ff5a8f 0%, #ff95b5 100%);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .emoji {
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 25px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .greeting-text {
+                font-size: 1.1em;
+            }
+
+            button {
+                padding: 15px 40px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="emoji">🎅</span> クリスマス メッセージ <span class="emoji">🎄</span></h1>
+        <p class="subtitle">ボタンをクリックして、素敵なメッセージを受け取ろう!</p>
+        
+        <div class="greeting-box">
+            <div class="icon-decoration icon-1">⭐</div>
+            <div class="icon-decoration icon-2">🎁</div>
+            <div class="icon-decoration icon-3">🔔</div>
+            <div class="icon-decoration icon-4">❄️</div>
+            <p class="greeting-text" id="greeting">
+                ボタンを押して、心温まるクリスマスメッセージを受け取りましょう✨
+            </p>
+        </div>
+        
+        <button onclick="generateGreeting()">
+            新しいメッセージを生成 🎉
+        </button>
+    </div>
+
+    <script>
+        const greetings = [
+            "メリークリスマス！🎄 あなたの心に平和と喜びが訪れますように。",
+            "素敵なクリスマスをお過ごしください！✨ 幸せな思い出がたくさんできますように。",
+            "クリスマスおめでとうございます！🎅 温かい愛に包まれた一日になりますように。",
+            "聖なる夜に、あなたとご家族に祝福がありますように。🌟",
+            "クリスマスの魔法があなたを包みますように！❄️ 素晴らしい一日を！",
+            "心温まるクリスマスになりますように。🎁 あなたの笑顔が輝く日でありますように。",
+            "メリークリスマス！🔔 夢と希望に満ちた新年が訪れますように。",
+            "素敵なクリスマスを！⭐ あなたの願いが叶いますように。",
+            "クリスマスの喜びがあなたの心を満たしますように。🎄💫",
+            "愛と平和に満ちたクリスマスを！🕊️ 幸せがいっぱいの一日になりますように。",
+            "メリークリスマス！🎅✨ あなたとあなたの大切な人に祝福を。",
+            "キラキラ輝くクリスマスになりますように！⛄ 楽しい時間をお過ごしください。",
+            "心からのクリスマスの祝福を贈ります。🎄❤️ 幸せな瞬間がたくさんありますように。",
+            "聖夜の奇跡があなたに訪れますように。✨🌙 素敵なクリスマスを！",
+            "温もりあふれるクリスマスをお過ごしください。🎁💝 喜びに満ちた日々が続きますように。"
+        ];
+
+        function generateGreeting() {
+            const greetingElement = document.getElementById('greeting');
+            const randomIndex = Math.floor(Math.random() * greetings.length);
+            
+            // アニメーション効果を追加
+            greetingElement.classList.remove('fade-in');
+            void greetingElement.offsetWidth; // リフロー強制
+            greetingElement.classList.add('fade-in');
+            
+            greetingElement.textContent = greetings[randomIndex];
+        }
+    </script>
+</body>
+</html>
